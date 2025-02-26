@@ -85,7 +85,7 @@ resize_and_rescale = tf.keras.Sequential([
 
 * Batch size: `32`
  
-### Fingings:
+### Analysis of the Results:
 
 #### Loss:
 
