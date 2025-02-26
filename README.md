@@ -12,6 +12,8 @@ The Machine Learning models were created using **Tensorflow** and **Keras*.
 
 ### Dataset Description:
 
+TODO: ADD THE IMAGE(s) HERE
+
 - Collected the data by writing a web image scraper script and searching the keywords in 5 different languages: `English`, `Japanese`, `Spanish`, `French`, `Chinese`.
 - Remove duplicated images by writing a script and implementing pHash. I chose this approach as I wanted to remove the same images with different sizes and image qualities.
 - Cleaned the data by converting the formats of all the images to be **png* type.
@@ -26,75 +28,96 @@ The Machine Learning models were created using **Tensorflow** and **Keras*.
   
 ---
 
-### Machine Learning Model Comparison:
+## Comparison of Machine Learning Models:
 
-The models utilizes transfer learning and I used various models as a base: 1) 
+I built various Machine Learning models through transfer learning with different base models, here is the list of all the base models I experimented:
+1) `MobileNetV3Large`
+2) `EfficientNetB2`
+3) `ResNet50`
+4) `VGG16`
 
+### Configurations:
 
+I kept the following configurations the same to be consistent across all the base model experiments: 
 
-
-
----
-
-### Machine Learning Model Architecture:
+#### Machine Learning Model Architecture:
 
 The models utilizes transfer learning composed of the following elements:
-- `MobileNetV3Small` with `imagenet` weights
+- Each base model with `imagenet` weights
 - `Dense` layer with `relu` activation function
-- `BatchNormalization`
-- `Dropout` layer
+- `Dropout` layer with `0.2`
+- `Dense` layer with `relu` activation function
+- `Dropout` layer with `0.2`
 - `Dense` layer with `softmax` activation function
 
----
+#### Data Augmentation and Resizing and Rescaling:
 
-### Data Augmentation:
+For the training dataset, I applied the following Data Augmentation to avoid overfitting:
 
-For the training dataset, I applied the following data augmentation to avoid overfitting:
+Data Augmentation - 
+```
+data_augmentation = keras.Sequential([
+  tf.keras.layers.RandomFlip("horizontal_and_vertical"),
+  tf.keras.layers.RandomRotation(0.2),
+  tf.keras.layers.RandomZoom(0.2),
+  tf.keras.layers.RandomHeight(0.2),
+  tf.keras.layers.RandomWidth(0.2),
+], name="data_augmentation")
+```
 
-- `zca_epsilon` = `0.0`
-- `horizontal_flip` = `True`
+I also applied the following Resizing and Rescaling:
 
----
+Resizing and Rescaling - 
+```
+resize_and_rescale = tf.keras.Sequential([
+  tf.keras.layers.Resizing(224,224),
+  tf.keras.layers.Rescaling(1./255),
+])
+```
 
-### Training Hyperparameters:
+#### Training Hyperparameters:
 
-* Epochs: `30`
+* Epochs: `100` with `EarlyStopping` with the `patience` of `30`
   
 * Optimizer: `Adam`
 
-* Learning Rate: `0.001`
+* Learning Rate: `0.00001`
 
-* Batch size: `64`
+* Batch size: `32`
+ 
+### Fingings:
 
----
+#### Loss:
 
-### Loss:
+TODO: ADD THE IMAGE(s) HERE
 
-![](./visuals/lung_classification_loss.png?raw=true)
-
----
+MobileNetV3Large           | EfficientNetB2           | ResNet50                  |  VGG16
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+![](./visuals/lung_classification_loss.png?raw=true)  | ![](./visuals/lung_classification_loss.png?raw=true) | ![](./visuals/lung_classification_loss.png?raw=true) | ![](./visuals/lung_classification_loss.png?raw=true)
 
 ### Accuracy:
 
-![](./visuals/lung_classification_accuracy.png?raw=true)
+TODO: ADD THE IMAGE(s) HERE
 
----
+MobileNetV3Large           | EfficientNetB2           | ResNet50                  |  VGG16
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+![](./visuals/lung_classification_loss.png?raw=true)  | ![](./visuals/lung_classification_loss.png?raw=true) | ![](./visuals/lung_classification_loss.png?raw=true) | ![](./visuals/lung_classification_loss.png?raw=true)
 
-### Confusion Matrix without Normalization:
+### Example Inference:
 
-![](./visuals/lung_classification_confusion_matrix_without_normalization.png?raw=true)
+TODO: ADD THE IMAGE(s) HERE
 
----
+MobileNetV3Large           | EfficientNetB2           | ResNet50                  |  VGG16
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+![](./visuals/lung_classification_loss.png?raw=true)  | ![](./visuals/lung_classification_loss.png?raw=true) | ![](./visuals/lung_classification_loss.png?raw=true) | ![](./visuals/lung_classification_loss.png?raw=true)
 
-### Normalized Confusion Matrix:
+### Classification Report:
 
-![](./visuals/lung_classification_normalized_confusion_matrix.png?raw=true)
+TODO: ADD THE IMAGE(s) HERE
 
----
+MobileNetV3Large           | EfficientNetB2           | ResNet50                  |  VGG16
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+![](./visuals/lung_classification_loss.png?raw=true)  | ![](./visuals/lung_classification_loss.png?raw=true) | ![](./visuals/lung_classification_loss.png?raw=true) | ![](./visuals/lung_classification_loss.png?raw=true)
 
-### Result:
+### Conclusion:
 
-This implementation was able to achieve the following accuracy scores:
-
-- Training Accuracy: `0.9561` 
-- Validation Accuracy: `0.9241`
