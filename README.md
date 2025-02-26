@@ -12,7 +12,7 @@ The Machine Learning models were created using **Tensorflow** and **Keras*.
 
 ### Dataset Description:
 
-TODO: ADD THE IMAGE(s) HERE
+![](./visuals/climbing_footwork_classification_img.png?raw=true) 
 
 - Collected the data by writing a web image scraper script and searching the keywords in 5 different languages: `English`, `Japanese`, `Spanish`, `French`, `Chinese`.
 - Remove duplicated images by writing a script and implementing pHash. I chose this approach as I wanted to remove the same images with different sizes and image qualities.
@@ -89,35 +89,52 @@ resize_and_rescale = tf.keras.Sequential([
 
 #### Loss:
 
-TODO: ADD THE IMAGE(s) HERE
+From the loss plots drawn below, you can see that training loss is decreasing while validation loss is not. This shows that the models are overfitting. I have experimented with different configrations as well, but it seems that this overfitting is due to the lack of data available. We need much more data to improve the loss, but since this is a niche nature of the topic, the data availability was limited.
 
-MobileNetV3Large           | EfficientNetB2           | ResNet50                  |  VGG16
-:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
-![](./visuals/lung_classification_loss.png?raw=true)  | ![](./visuals/lung_classification_loss.png?raw=true) | ![](./visuals/lung_classification_loss.png?raw=true) | ![](./visuals/lung_classification_loss.png?raw=true)
+MobileNetV3Large           | EfficientNetB2           
+:-------------------------:|:-------------------------:
+![](./visuals/MobileNetV3Large/mobilenet_loss.png?raw=true)  | ![](./visuals/EfficientNetB2/efficientnet_loss.png?raw=true) 
+
+| ResNet50                  |  VGG16
+|:-------------------------:|:-------------------------:
+| ![](./visuals/ResNet50/resnet_loss.png?raw=true) | ![](./visuals/VGG16/vgg_loss.png?raw=true)
 
 ### Accuracy:
 
-TODO: ADD THE IMAGE(s) HERE
+Similar to the loss, accuracy also improved for training but not for validation for all of the models for the same reason mentioend as above.
 
-MobileNetV3Large           | EfficientNetB2           | ResNet50                  |  VGG16
-:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
-![](./visuals/lung_classification_loss.png?raw=true)  | ![](./visuals/lung_classification_loss.png?raw=true) | ![](./visuals/lung_classification_loss.png?raw=true) | ![](./visuals/lung_classification_loss.png?raw=true)
+MobileNetV3Large           | EfficientNetB2          
+:-------------------------:|:-------------------------:
+![](./visuals/MobileNetV3Large/mobilenet_accuracy.png?raw=true)  | ![](./visuals/EfficientNetB2/efficientnet_accuracy.png?raw=true)  
+
+| ResNet50                  |  VGG16
+|:-------------------------:|:-------------------------:
+| ![](./visuals/ResNet50/resnet_accuracy.png?raw=true)  | ![](./visuals/VGG16/vgg_accuracy.png?raw=true) 
 
 ### Example Inference:
 
-TODO: ADD THE IMAGE(s) HERE
+The green color represents the correctly predicted images while the red color represents the mistakenly predicted images. All the models contains a number of the red/ incorrect predictions. This shows that if the model is overfitted, it cannot accurately predict the categories.  
 
-MobileNetV3Large           | EfficientNetB2           | ResNet50                  |  VGG16
-:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
-![](./visuals/lung_classification_loss.png?raw=true)  | ![](./visuals/lung_classification_loss.png?raw=true) | ![](./visuals/lung_classification_loss.png?raw=true) | ![](./visuals/lung_classification_loss.png?raw=true)
+MobileNetV3Large           | EfficientNetB2       
+:-------------------------:|:-------------------------:
+![](./visuals/MobileNetV3Large/mobilenet_inference.png?raw=true)   | ![](./visuals/EfficientNetB2/efficientnet_inference.png?raw=true) 
+
+| ResNet50                  |  VGG16
+|:-------------------------:|:-------------------------:
+| ![](./visuals/ResNet50/resnet_inference.png?raw=true) | ![](./visuals/VGG16/vgg_inference.png?raw=true)
 
 ### Classification Report:
 
-TODO: ADD THE IMAGE(s) HERE
+Which model did the best ? While all four models had not so great performance due to the lack of data, the model based on the **ResNet50** has the highest **Macro Average F1 Score** of **0.42**. I chose the **Macro F1 Score** to compare the performance in order to ensure that all classes are considered.
 
-MobileNetV3Large           | EfficientNetB2           | ResNet50                  |  VGG16
-:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
-![](./visuals/lung_classification_loss.png?raw=true)  | ![](./visuals/lung_classification_loss.png?raw=true) | ![](./visuals/lung_classification_loss.png?raw=true) | ![](./visuals/lung_classification_loss.png?raw=true)
+MobileNetV3Large           | EfficientNetB2           
+:-------------------------:|:-------------------------:
+![](./visuals/MobileNetV3Large/mobilenet_classification_report.png?raw=true)  | ![](./visuals/EfficientNetB2/efficientnet_classification_report.png?raw=true) 
+
+| ResNet50                  |  VGG16
+|:-------------------------:|:-------------------------:
+| ![](./visuals/ResNet50/resnet_classification_report.png?raw=true)  | ![](./visuals/VGG16/vgg_classification_report.png?raw=true) 
 
 ### Conclusion:
 
+This was a great experience of choosing a niche topic and collecting the data on my own from the web. I cleaned and formatted the data to be easily utilized for my Machine Learning models. I also explored different configrations and base models for trainsfer learning. My biggest learning was that building a model requires a lot more data, and if I want to build a model, I need to ensure to have access to enough data. For the future, I would love to come up with a way to automatically collect a large enough amount of data for my Machine Learning trainings.
