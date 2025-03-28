@@ -146,7 +146,7 @@ I have also exmerimented the classification using **GPT 4 Turbo LLM**, and here 
 - #### Inference: 
 ![](./visuals/LLM_GPT-4-Turbo/llm_gpt_inference.png?raw=true) 
 
-The performance of the **GPT 4 Turbo** on this particular image classification task is not better than other models.
+The performance of the **GPT 4 Turbo** on this particular image classification task is not better than other models. It seems that the **GPT 4 Turbo** model took a naive approach to classify most of the images into **ohter** category.
 
 - #### Classification Report: 
 ![](./visuals/LLM_GPT-4-Turbo/llm_gpt_classification_report.png?raw=true) 
@@ -154,7 +154,7 @@ The performance of the **GPT 4 Turbo** on this particular image classification t
 **GPT 4 Turbo** model's **Macro Average F1 Score** was **0.22** which is worse than all the other trained models compared above.
 
 - #### Confusion Matrix: 
-![](./visuals/LLM_GPT-4-Turbo/llm_gpt_inference.png?raw=true) 
+![](./visuals/LLM_GPT-4-Turbo/llm_gpt_confusion_matrix.png?raw=true) 
 
 It would be helpful to have more tests, but in general, the performance is not very great.
 
