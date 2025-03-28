@@ -138,3 +138,26 @@ MobileNetV3Large           | EfficientNetB2
 ### Conclusion:
 
 This was a great experience of choosing a niche topic and collecting the data on my own from the web. I cleaned and formatted the data to be easily utilized for my Machine Learning models. I also explored different configrations and base models for trainsfer learning. My biggest learning was that building a model requires a lot more data, and if I want to build a model, I need to ensure to have access to enough data. For the future, I would love to come up with a way to automatically collect a large enough amount of data for my Machine Learning trainings.
+
+### Update:
+
+I have also exmerimented the classification using **GPT 4 Turbo LLM**, and here are my findings:
+
+- #### Inference: 
+![](./visuals/LLM_GPT-4-Turbo/llm_gpt_inference.png?raw=true) 
+
+The performance of the **GPT 4 Turbo** on this particular image classification task is not better than other models.
+
+- #### Classification Report: 
+![](./visuals/LLM_GPT-4-Turbo/llm_gpt_classification_report.png?raw=true) 
+
+**GPT 4 Turbo** model's **Macro Average F1 Score** was **0.22** which is worse than all the other trained models compared above.
+
+- #### Confusion Matrix: 
+![](./visuals/LLM_GPT-4-Turbo/llm_gpt_inference.png?raw=true) 
+
+It would be helpful to have more tests, but in general, the performance is not very great.
+
+- #### Summing Up:
+
+It was such an interesting experience to compare the performance of all the models plus that of **GPT 4 Turbo**'s! The **GPT 4 Turbo LLM** can take images as an input, and I experimented with zero shot approach. In the future, it would be fun to try experimenting with various ideas and techniques to use LLM to further explore the ways to improve the performance of classification tasks!
