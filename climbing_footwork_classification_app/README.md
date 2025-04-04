@@ -4,14 +4,14 @@
 
 ## Introduction:
 
-This app is an app to classify the climbing's footwork technique using Computer Vision technology !
+This app is an app to classify the climbing footwork technique using Computer Vision technology !
 
 - Built and compared various Machine Learning models for image classification from data collection and processing to model training.
 - Realized the end to end user experience by deploying the models with containerized backend api and hosting the frontend code.
 
 ## How to Use the App:
 
-Please try out the climbing footwork classification by using any climbing photo :D
+Please try out the climbing footwork classification by using any climbing photo !
 
 1. Upload an image of a person climbing using the upload button.
 2. Select a model using the dropdown button.
@@ -43,4 +43,4 @@ The frontend was built using Python and Streamlit, and it was deployed on Stream
 The backend was built using Python and Flask, and it was deployed on Google Cloud Platform after containerized with Docker.
 
 ### Thank you !
-The experience to build an AI powered application end-to-end was wonderful, and it was a great learning experience. I would love to continue extending on top this idea and build a cooler app with much better model's performance. Thank you for your time taking a look at my project !
+The experience to build an AI powered application end-to-end was wonderful, and it was a great learning experience. I would love to continue extending on top this idea and build a even more powerful and comprehensive app with much better model's performance. Thank you for your time taking a look at my project !
