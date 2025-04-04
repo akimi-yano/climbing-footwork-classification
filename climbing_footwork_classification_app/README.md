@@ -7,7 +7,7 @@
 This app is an app to classify the climbing footwork technique using Computer Vision technology !
 
 - Built and compared various Machine Learning models for image classification from data collection and processing to model training.
-- Realized the end to end user experience by deploying the models with containerized backend api and hosting the frontend code.
+- Realized the end-to-end user experience by deploying the models with containerized backend api and hosting the frontend code.
 
 ## How to Use the App:
 
