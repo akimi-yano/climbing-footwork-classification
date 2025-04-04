@@ -10,6 +10,7 @@ import tensorflow as tf
 
 app = Flask(__name__)
 
+
 # Define model paths
 model_paths = {
     "resnet50": "./models/resnet50.h5",
@@ -54,39 +55,42 @@ def classify_with_gpt(image):
     Uses base64 encoding instead of an online URL.
     Returns an integer: 0 (heel_hook), 1 (toe_hook), or 2 (others).
     """
+    try:
+        print("Retrieving...")
+        client = openai.OpenAI(api_key=os.environ.get("OPENAI_API_KEY", "Not Found"))
+        print("Retrieved.")
 
-    # Preprocess the image for classification
-    processed_image = preprocess_image(image)
+        # Encode image as base64
+        encoded_image = encode_image_base64(image)
 
-    # Encode image as base64
-    encoded_image = encode_image_base64(image)
+        # Define prompt & messages
+        messages = [
+            {"role": "user", "content": [
+                {"type": "text", "text": """
+                You are an expert in rock climbing techniques. Classify the given image into one of these categories:
+                - 0 (heel_hook): If the climber's **heel** is hooked onto a hold.
+                - 1 (toe_hook): If the climber's **toe** is hooked onto a hold.
+                - 2 (others): If neither technique is present.
 
-    # Define prompt & messages
-    messages = [
-        {"role": "user", "content": [
-            {"type": "text", "text": """
-            You are an expert in rock climbing techniques. Classify the given image into one of these categories:
-            - 0 (heel_hook): If the climber's **heel** is hooked onto a hold.
-            - 1 (toe_hook): If the climber's **toe** is hooked onto a hold.
-            - 2 (others): If neither technique is present.
+                **Respond with only a single integer (0, 1, or 2). Do not include any explanation or text.**
+                """},
+                {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{encoded_image}"}}
+            ]}
+        ]
 
-            **Respond with only a single integer (0, 1, or 2). Do not include any explanation or text.**
-            """},
-            {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{encoded_image}"}}
-        ]}
-    ]
+        print("Making request to GPT...")
+        # API call to classify a single image
+        response = client.chat.completions.create(
+            model="gpt-4-turbo",
+            messages=messages,
+            max_tokens=1  # Limit response to one token (single integer)
+        )
 
-    client = openai.OpenAI()
-
-    # API call to classify a single image
-    response = client.chat.completions.create(
-        model="gpt-4-turbo",
-        messages=messages,
-        max_tokens=1  # Limit response to one token (single integer)
-    )
-
-    # Extract and return integer prediction
-    prediction = response.choices[0].message.content.strip()
+        # Extract and return integer prediction
+        prediction = response.choices[0].message.content.strip()
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return 3 # Default value if response is unexpected
 
     try:
         return int(prediction)  # Convert to integer
@@ -99,14 +103,16 @@ def predict(model_name):
         return jsonify({"error": "Model not found"}), 404
 
     if model_name == 'gpt_4_turbo':
+        file = request.files.get("file")
+        if not file:
+            return jsonify({"error": "No file provided"}), 400
+
         try:
             image = Image.open(io.BytesIO(file.read())).convert("RGB")
             pred = classify_with_gpt(image)
-            # print(pred)
-            confidence = None
+            confidence = 0.0
             return jsonify({"label": pred, "confidence": confidence})
         except Exception as e:
-            # print(e)
             return jsonify({"error": f"Prediction error: {str(e)}"}), 500
     else:
         model = get_model(model_name)
@@ -121,7 +127,6 @@ def predict(model_name):
             image = Image.open(io.BytesIO(file.read())).convert("RGB")
             input_tensor = preprocess_image(image)
 
-            # Perform inference
             predictions = model.predict(input_tensor)
             label = int(np.argmax(predictions))
             confidence = float(np.max(predictions))
@@ -131,6 +136,6 @@ def predict(model_name):
         except Exception as e:
             return jsonify({"error": f"Prediction error: {str(e)}"}), 500
 
-
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+    # app.run(host='0.0.0.0', port=8000, debug=True) # This is to run locally

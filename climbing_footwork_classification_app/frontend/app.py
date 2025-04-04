@@ -10,8 +10,8 @@ st.title("Climbing Footwork Classification")
 uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
 
 # Model selection
-# model_name = st.selectbox("Select a model", ["resnet50", "mobilenet_v3_large", "efficientnet_b2", "vgg16", "gpt_4_turbo"])
-model_name = st.selectbox("Select a model", ["resnet50", "mobilenet_v3_large", "efficientnet_b2", "vgg16"])
+model_name = st.selectbox("Select a model", ["resnet50", "mobilenet_v3_large", "efficientnet_b2", "vgg16", "gpt_4_turbo"])
+# model_name = st.selectbox("Select a model", ["resnet50", "mobilenet_v3_large", "efficientnet_b2", "vgg16"])
 
 if uploaded_file:
     image = Image.open(uploaded_file)
@@ -25,6 +25,7 @@ if uploaded_file:
     # API request
     if st.button("Classify"):
         endpoint = "https://climbing-image-classification-270454513285.us-central1.run.app"
+        # endpoint = 'http://127.0.0.1:8080' # This is to run locally
         response = requests.post(f"{endpoint}/predict/{model_name}", files={"file": img_bytes})
         
         if response.status_code == 200:
@@ -34,8 +35,8 @@ if uploaded_file:
                 1: 'Toe Hook',
                 2: 'Others'
             }
-            if result['confidence'] is None:
-                st.write(f"Prediction: **{class_mapping[result['label']]}** (Confidence: {result['confidence']:.2f})")
+            if result['confidence'] == 0.0:
+                st.write(f"Prediction: **{class_mapping[result['label']]}**")
             else:
                 st.write(f"Prediction: **{class_mapping[result['label']]}** (Confidence: {result['confidence']:.2f})")
         else:
