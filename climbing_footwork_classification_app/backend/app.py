@@ -1,15 +1,12 @@
-from flask import Flask, request, jsonify
-import tensorflow as tf
-import numpy as np
-from PIL import Image
-import io
-import openai
 import base64
 import io
-import tensorflow as tf
+import os
+
+from flask import Flask, request, jsonify
 from PIL import Image
 import numpy as np
-import os
+import openai
+import tensorflow as tf
 
 app = Flask(__name__)
 
@@ -136,4 +133,4 @@ def predict(model_name):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5001)
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
