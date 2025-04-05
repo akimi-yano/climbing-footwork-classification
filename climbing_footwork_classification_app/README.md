@@ -42,7 +42,7 @@ To train the machine learning models, I collected image data by writing the web 
 The frontend was built using Python and Streamlit, and it was deployed on Streamlit Cloud Community.
 
 ### Backend
-The backend was built using Python and Flask, and it was deployed on Google Cloud Platform after containerized with Docker.
+The backend was built using Python and Flask, and it was deployed on Google Cloud Platform's Cloud Run after containerized with Docker.
 
 ### Thank you !
 The experience to build an AI powered application end-to-end was wonderful, and it was a great learning experience. I would love to continue extending on top this idea and build a even more powerful and comprehensive app with much better model's performance. Thank you for your time taking a look at my project !
