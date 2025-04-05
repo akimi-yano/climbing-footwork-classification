@@ -2,6 +2,8 @@
 
 ### Deployed: https://climbing-footwork-classification.streamlit.app/
 
+### Demo Video: https://youtu.be/JxlRRbaMjQo
+
 ## Introduction:
 
 This app is an app to classify the climbing footwork technique using Computer Vision technology !
